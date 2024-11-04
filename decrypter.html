@@ -26,7 +26,7 @@
       downloadTag.download = fileName;
       downloadTag.click();
       window.setTimeout( function() { URL.revokeObjectURL(blob);}, 10000 );
-      window.alert('保存しました。');
+      window.alert('保存処理中です。ダウンロードが開始されるまで時間がかかることがあります。しばらくお待ちください。');
     }
 
     function toBlob(base64) {
