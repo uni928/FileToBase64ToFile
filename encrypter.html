@@ -17,7 +17,7 @@
 	var reader=new FileReader();
 	reader.readAsDataURL(result);
 	reader.addEventListener('load', function() {
-                document.getElementById("textbox3").value = reader.result + "," + result.name;
+                document.getElementById("textbox3").value = reader.result + "," + result.name.replaceAll(",", "");
 	});
 	e.target.value = '';
     });
