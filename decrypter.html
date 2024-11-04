@@ -1,0 +1,51 @@
+<html>
+<head>
+  <title>Base64 をファイルに変換</title>
+  <meta name="description" content="Base64 形式の文字列をファイルに変換して、ローカルに保存するサイトです。"/>
+  <style>
+
+  </style>
+</head>
+<body>
+  Base64 形式の文字列をファイルに変換して、ローカルに保存します。</br>
+  テキストボックスに Base64 の文字列を入れて</br>
+  「Base64 の文字列をファイルにする」を押して下さい。</br></br>
+  <textarea id="textbox1" rows="20" cols="150"></textarea></br></br>
+  <button type="button" id="btn" onclick="Func1()">Base64 の文字列をファイルにする</button>
+  <script>
+    
+    async function Func1() {
+      const textboxValue = document.getElementById("textbox1").value;
+
+      const base64String = textboxValue.substring(0, textboxValue.lastIndexOf(","));
+      const fileName = textboxValue.substring(textboxValue.lastIndexOf(",") + 1);
+
+      const blob = toBlob(base64String)
+      let downloadTag = document.createElement('a');
+      downloadTag.href = URL.createObjectURL(blob);
+      downloadTag.download = fileName;
+      downloadTag.click();
+      window.setTimeout( function() { URL.revokeObjectURL(blob);}, 10000 );
+      window.alert('保存しました。');
+    }
+
+    function toBlob(base64) {
+        var bin = atob(base64.replace(/^.*,/, ''));
+        var buffer = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) {
+            buffer[i] = bin.charCodeAt(i);
+        }
+
+        try{
+            //var blob = new Blob([buffer.buffer], {
+            //    type: 'image/png'
+            //});
+            var blob = new Blob([buffer.buffer]);
+        }catch (e){
+            return false;
+        }
+        return blob;
+    }
+  </script>
+</body>
+</html>
